@@ -1,0 +1,10 @@
+﻿AsyncMode: true
+AutoMode: true
+OutputPath: null
+BundlesFileName: bundles.txt
+KeysFileName: gamekeys.txt
+
+GameOptions:
+  AllowedTypes:
+    - Steam
+  AllowExpired: false
