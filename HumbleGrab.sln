@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HumbleGrab.Core", "HumbleGrab.Core.csproj", "{50E1A686-CB80-4270-BE05-3DC8FDD07A97}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HumbleGrab.Core", "HumbleGrab.Core\HumbleGrab.Core.csproj", "{50E1A686-CB80-4270-BE05-3DC8FDD07A97}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HumbleGrab.Humble", "HumbleGrab.Humble\HumbleGrab.Humble.csproj", "{EA48828F-7503-4270-8C9B-3E16F929F2BD}"
 EndProject
