@@ -1,30 +1,21 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Nodes;
+using HumbleGrab.Common;
+using HumbleGrab.Common.Interfaces;
 using HumbleGrab.Steam.Models;
 using HumbleGrab.Steam.Options;
 
 namespace HumbleGrab.Steam;
 
-public class SteamClient : IDisposable
+public class SteamClient : BaseClient<ISteamOptions>
 {
-    private const string BaseUrl = "https://api.steampowered.com";
+    override protected string BaseUrl => "https://api.steampowered.com";
 
     private const string OwnedGamesEndpoint = "/IPlayerService/GetOwnedGames/v0001/";
-    
-    private readonly HttpClientHandler ClientHandler;
-    
-    protected readonly HttpClient Client;
-    
-    protected readonly ISteamOptions Options;
-    
-    public SteamClient(ISteamOptions options)
-    {
-        Options = options;
-        ClientHandler = new HttpClientHandler { UseCookies = false };
-        Client = new HttpClient(ClientHandler) { BaseAddress = new Uri(BaseUrl) };
-    }
 
-    public async Task<SteamProfile> GetProfileAsync()
+    public SteamClient(ISteamOptions options) : base(options) { }
+
+    private async Task<SteamProfile> GetProfileAsync()
     {
         var endpoint = $"{OwnedGamesEndpoint}?key={Options.ApiKey}&steamid={Options.SteamId}";
         
@@ -44,10 +35,15 @@ public class SteamClient : IDisposable
         return profile;
     }
 
-    public void Dispose()
+    public override IEnumerable<IGame> FetchGames()
     {
-        Client.Dispose();
-        ClientHandler.Dispose();
-        GC.SuppressFinalize(this);
+        var profile = GetProfileAsync().GetAwaiter().GetResult();
+        return profile.Games.Cast<IGame>();
+    }
+
+    public override async Task<IEnumerable<IGame>> FetchGamesAsync()
+    {
+        var profile = await GetProfileAsync();
+        return profile.Games.Cast<IGame>();
     }
 }

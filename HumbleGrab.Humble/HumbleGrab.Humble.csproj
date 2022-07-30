@@ -7,8 +7,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Selenium.WebDriver" Version="4.3.0" />
-        <PackageReference Include="Selenium.WebDriver.MSEdgeDriver" Version="103.0.1264.62" />
+        <PackageReference Include="Selenium.WebDriver" Version="4.3.0"/>
+        <PackageReference Include="Selenium.WebDriver.MSEdgeDriver" Version="103.0.1264.62"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\HumbleGrab.Common\HumbleGrab.Common.csproj"/>
     </ItemGroup>
 
 </Project>

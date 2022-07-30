@@ -1,5 +1,8 @@
-﻿using Config.Net;
-using HumbleGrab.Humble.Clients;
+﻿using System.Diagnostics;
+using Config.Net;
+using HumbleGrab.Humble;
+using HumbleGrab.Steam;
+using HumbleGrabber.Client;
 using HumbleGrabber.Config;
 
 var optionsPath = AppDomain.CurrentDomain.BaseDirectory + @"\config.yaml";
@@ -8,27 +11,14 @@ var options = new ConfigurationBuilder<IOptions>()
     .UseYamlFile(optionsPath)
     .Build();
 
-var factory = new ClientFactory(options);
+var runner = new ClientRunner(options)
+    .AddClient<HumbleClient>()
+    .AddClient<SteamClient>();
 
-using var humbleClient = factory.CreateHumbleClient();
-using var steamClient = factory.CreateSteamClient();
+var sw = Stopwatch.StartNew();
 
-Console.WriteLine("Starting Humble client...");
-if (options.HumbleOptions.AsyncMode)
-{
-    await humbleClient.StartAsync();
-}
-else
-{
-    humbleClient.Start();
-}
-Console.WriteLine("Finished scraping humble bundle");
-Console.WriteLine("Starting Steam client...");
-var profile = await steamClient.GetProfileAsync();
-Console.WriteLine("Finished scraping steam");
+var result = runner.Run();
 
-Console.WriteLine("Comparing Humble against Steam");
+sw.Stop();
 
-
-
-Console.WriteLine("Done!");
+Console.WriteLine($"Found {result.Count()} games in {sw.Elapsed.TotalSeconds} seconds");

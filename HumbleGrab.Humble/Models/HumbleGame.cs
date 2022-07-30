@@ -1,9 +1,10 @@
 ﻿using System.Text.Json.Serialization;
+using HumbleGrab.Common.Interfaces;
 using HumbleGrab.Humble.Utilities;
 
-namespace HumbleGrab.Humble.Models.GameKey;
+namespace HumbleGrab.Humble.Models;
 
-public readonly record struct Game
+public readonly record struct HumbleGame
 (
     [property: JsonPropertyName("human_name")]
     string Name,
@@ -14,18 +15,5 @@ public readonly record struct Game
     [property: JsonPropertyName("key_type")]
     GamePlatform Platform,
     [property: JsonPropertyName("steam_app_id"), JsonConverter(typeof(NullableIntConverter))]
-    int SteamId 
-);
-
-[JsonConverter(typeof(JsonStringEnumConverter))]
-public enum GamePlatform
-{
-    Steam,
-    Gog,
-    Origin,
-    Blizzard,
-    Playstation,
-    Uplay,
-    Generic,
-    External_Key
-}
+    int SteamId
+) : IGame;

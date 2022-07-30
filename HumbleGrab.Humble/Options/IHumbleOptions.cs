@@ -1,15 +1,14 @@
-﻿namespace HumbleGrab.Humble.Options;
+﻿using HumbleGrab.Common.Interfaces;
 
-public interface IHumbleOptions
+namespace HumbleGrab.Humble.Options;
+
+public interface IHumbleOptions : IClientOptions
 {
-    bool AsyncMode { get; }
-    bool AutoMode { get; }
-    
     string OutputPath { get; }
-    
+
     string BundlesFileName { get; }
-    
+
     string KeysFileName { get; }
-    
+
     IGameOptions GameOptions { get; }
 }

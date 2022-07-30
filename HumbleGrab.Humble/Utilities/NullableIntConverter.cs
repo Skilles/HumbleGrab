@@ -11,9 +11,10 @@ public class NullableIntConverter : JsonConverter<int>
         {
             return 0;
         }
+
         return JsonSerializer.Deserialize<int>(ref reader, options);
     }
 
-    public override void Write(Utf8JsonWriter writer, int value, JsonSerializerOptions options)
+    public override void Write(Utf8JsonWriter writer, int value, JsonSerializerOptions options) 
         => JsonSerializer.Serialize(writer, value, options);
 }

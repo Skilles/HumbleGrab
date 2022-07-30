@@ -1,27 +1,27 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Nodes;
-using HumbleGrab.Humble.Models.GameKey;
+using HumbleGrab.Humble.Models;
 using HumbleGrab.Humble.Options;
 
 namespace HumbleGrab.Humble.Utilities.Extensions;
 
 public static class JsonExtensions
 {
-    private static GameBundle ToGameBundle(this JsonNode jsonObject, IGameOptions options)
+    private static HumbleGameBundle ToGameBundle(this JsonNode jsonObject, IGameOptions options)
     {
         var name = jsonObject["product"]!["human_name"]!.GetValue<string>();
 
         var games = jsonObject["tpkd_dict"]!["all_tpks"]!
             .AsArray()
-            .Select(n => n.Deserialize<Game>())
+            .Select(n => n.Deserialize<HumbleGame>())
             .Where(g => options.AllowedTypes.Contains(g.Platform));
-        
+
         if (!options.AllowExpired)
         {
             games = games.Where(g => !g.IsExpired);
         }
-        
-        var gameBundle = new GameBundle
+
+        var gameBundle = new HumbleGameBundle
         {
             Name = name,
             Games = games
@@ -30,7 +30,7 @@ public static class JsonExtensions
         return gameBundle;
     }
 
-    public static IEnumerable<GameBundle> ToGameBundles(this string json, IGameOptions options)
+    public static IEnumerable<HumbleGameBundle> ToGameBundles(this string json, IGameOptions options)
     {
         var jsonObjects = JsonNode.Parse(json)!.AsObject();
         return jsonObjects

@@ -1,8 +1,10 @@
-﻿namespace HumbleGrab.Steam.Options;
+﻿using HumbleGrab.Common.Interfaces;
 
-public interface ISteamOptions
+namespace HumbleGrab.Steam.Options;
+
+public interface ISteamOptions : IClientOptions
 {
     public string ApiKey { get; }
-    
+
     public string SteamId { get; }
 }

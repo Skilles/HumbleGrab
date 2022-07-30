@@ -1,4 +1,4 @@
-﻿namespace HumbleGrab.Humble.Utilities;
+﻿namespace HumbleGrab.Common;
 
 public class FileWriter : IDisposable
 {
@@ -6,7 +6,7 @@ public class FileWriter : IDisposable
 
     private readonly IDictionary<string, StreamWriter> Files;
 
-    public FileWriter(string basePath)
+    internal FileWriter(string basePath)
     {
         if (!Directory.Exists(basePath))
         {
@@ -17,7 +17,7 @@ public class FileWriter : IDisposable
         BasePath = basePath;
     }
 
-    protected StreamWriter GetFile(string fileName)
+    private StreamWriter GetFile(string fileName)
     {
         if (!Files.TryGetValue(fileName, out var file))
         {
@@ -26,12 +26,13 @@ public class FileWriter : IDisposable
             {
                 File.Create(filePath).Close();
             }
-            Files[fileName] = file = new StreamWriter(filePath, append: true);
+
+            Files[fileName] = file = new StreamWriter(filePath, true);
         }
 
         return file;
     }
-    
+
     ~FileWriter()
     {
         Dispose();
@@ -45,6 +46,7 @@ public class FileWriter : IDisposable
             file.Close();
             file.Dispose();
         }
+
         GC.SuppressFinalize(this);
     }
 
