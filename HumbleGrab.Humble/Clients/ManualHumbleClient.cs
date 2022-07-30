@@ -7,7 +7,7 @@ using OpenQA.Selenium.Support.UI;
 namespace HumbleGrab.Humble.Clients;
 
 [Obsolete("Use AutoHumbleClient")]
-internal class ManualHumbleClient : HumbleClient
+public class ManualHumbleClient : HumbleClient
 {
     private const string BaseUrl = "https://www.humblebundle.com/home/keys";
 
@@ -15,8 +15,8 @@ internal class ManualHumbleClient : HumbleClient
         "/html/body[@class='mm-wrapper']/div[@id='mm-0']/div[@class='page-wrap']/div[@class='base-main-wrapper']/div[@class='inner-main-wrapper']/div[@class='js-key-manager-holder js-holder']/div[@class='table-rounder js-results']/table[@class='unredeemed-keys-table']/tbody/tr[*]/td[@class='platform']/i[@class='hb hb-key hb-steam']/../../td[@class='game-name']/h4";
 
     private IWebDriver Driver = null!;
-    
-    internal ManualHumbleClient(IHumbleOptions options) : base(options)
+
+    public ManualHumbleClient(IHumbleOptions options) : base(options)
     {
     }
 

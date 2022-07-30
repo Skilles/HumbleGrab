@@ -16,7 +16,7 @@ public class AutoHumbleClient : HumbleClient
 
     private readonly HttpClient Client;
 
-    internal AutoHumbleClient(IHumbleOptions options) : base(options)
+    public AutoHumbleClient(IHumbleOptions options) : base(options)
     {
         ClientHandler = new HttpClientHandler { UseCookies = false };
         Client = new HttpClient(ClientHandler) { BaseAddress = new Uri(BaseUrl) };

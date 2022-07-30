@@ -1,24 +1,34 @@
 ﻿using Config.Net;
 using HumbleGrab.Humble.Clients;
-using HumbleGrab.Humble.Options;
+using HumbleGrabber.Config;
 
 var optionsPath = AppDomain.CurrentDomain.BaseDirectory + @"\config.yaml";
 
-var options = new ConfigurationBuilder<IHumbleOptions>()
+var options = new ConfigurationBuilder<IOptions>()
     .UseYamlFile(optionsPath)
     .Build();
 
-var factory = new HumbleClientFactory(options);
+var factory = new ClientFactory(options);
 
-using var client = factory.CreateClient();
+using var humbleClient = factory.CreateHumbleClient();
+using var steamClient = factory.CreateSteamClient();
 
-Console.WriteLine("Starting...");
-if (options.AsyncMode)
+Console.WriteLine("Starting Humble client...");
+if (options.HumbleOptions.AsyncMode)
 {
-    await client.StartAsync();
+    await humbleClient.StartAsync();
 }
 else
 {
-    client.Start();
+    humbleClient.Start();
 }
-Console.WriteLine("Finished!");
+Console.WriteLine("Finished scraping humble bundle");
+Console.WriteLine("Starting Steam client...");
+var profile = await steamClient.GetProfileAsync();
+Console.WriteLine("Finished scraping steam");
+
+Console.WriteLine("Comparing Humble against Steam");
+
+
+
+Console.WriteLine("Done!");
