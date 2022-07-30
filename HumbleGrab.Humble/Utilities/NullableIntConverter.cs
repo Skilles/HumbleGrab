@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace HumbleGrab.Utilities;
+namespace HumbleGrab.Humble.Utilities;
 
 public class NullableIntConverter : JsonConverter<int>
 {

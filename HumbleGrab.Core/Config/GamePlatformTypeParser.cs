@@ -1,7 +1,7 @@
 ﻿using Config.Net;
-using HumbleGrab.Models.GameKey;
+using HumbleGrab.Humble.Models.GameKey;
 
-namespace HumbleGrab.Options;
+namespace HumbleGrabber.Config;
 
 public class GamePlatformTypeParser : ITypeParser
 {

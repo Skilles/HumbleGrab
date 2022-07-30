@@ -1,6 +1,6 @@
-﻿using HumbleGrab.Options;
+﻿using HumbleGrab.Humble.Options;
 
-namespace HumbleGrab.Clients;
+namespace HumbleGrab.Humble.Clients;
 
 public class HumbleClientFactory
 {

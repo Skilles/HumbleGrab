@@ -1,10 +1,10 @@
 ﻿using System.Collections.ObjectModel;
-using HumbleGrab.Options;
+using HumbleGrab.Humble.Options;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Support.UI;
 
-namespace HumbleGrab.Clients;
+namespace HumbleGrab.Humble.Clients;
 
 [Obsolete("Use AutoHumbleClient")]
 internal class ManualHumbleClient : HumbleClient

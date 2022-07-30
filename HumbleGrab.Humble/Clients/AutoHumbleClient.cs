@@ -1,8 +1,8 @@
-﻿using HumbleGrab.Models.GameKey;
-using HumbleGrab.Options;
-using HumbleGrab.Utilities.Extensions;
+﻿using HumbleGrab.Humble.Models.GameKey;
+using HumbleGrab.Humble.Options;
+using HumbleGrab.Humble.Utilities.Extensions;
 
-namespace HumbleGrab.Clients;
+namespace HumbleGrab.Humble.Clients;
 
 public class AutoHumbleClient : HumbleClient
 {

@@ -1,6 +1,6 @@
-﻿using HumbleGrab.Models.GameKey;
+﻿using HumbleGrab.Humble.Models.GameKey;
 
-namespace HumbleGrab.Options;
+namespace HumbleGrab.Humble.Options;
 
 public interface IGameOptions
 {

@@ -1,6 +1,6 @@
 ﻿using Config.Net;
-using HumbleGrab.Clients;
-using HumbleGrab.Options;
+using HumbleGrab.Humble.Clients;
+using HumbleGrab.Humble.Options;
 
 var optionsPath = AppDomain.CurrentDomain.BaseDirectory + @"\config.yaml";
 

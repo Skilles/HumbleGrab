@@ -1,9 +1,9 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Nodes;
-using HumbleGrab.Models.GameKey;
-using HumbleGrab.Options;
+using HumbleGrab.Humble.Models.GameKey;
+using HumbleGrab.Humble.Options;
 
-namespace HumbleGrab.Utilities.Extensions;
+namespace HumbleGrab.Humble.Utilities.Extensions;
 
 public static class JsonExtensions
 {

@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
-using HumbleGrab.Utilities;
+using HumbleGrab.Humble.Utilities;
 
-namespace HumbleGrab.Models.GameKey;
+namespace HumbleGrab.Humble.Models.GameKey;
 
 public readonly record struct Game
 (

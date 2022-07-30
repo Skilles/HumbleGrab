@@ -1,4 +1,4 @@
-﻿namespace HumbleGrab.Models.GameKey;
+﻿namespace HumbleGrab.Humble.Models.GameKey;
 
 public readonly record struct GameBundle
 (

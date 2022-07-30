@@ -1,4 +1,4 @@
-﻿namespace HumbleGrab.Utilities.Extensions;
+﻿namespace HumbleGrab.Humble.Utilities.Extensions;
 
 public static class HttpExtensions
 {

@@ -1,4 +1,4 @@
-﻿namespace HumbleGrab.Options;
+﻿namespace HumbleGrab.Humble.Options;
 
 public interface IHumbleOptions
 {
