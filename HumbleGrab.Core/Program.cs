@@ -11,9 +11,12 @@ var options = new ConfigurationBuilder<IOptions>()
     .UseYamlFile(optionsPath)
     .Build();
 
+Options.Init(options);
+
 var runner = new ClientRunner(options)
     .AddClient<HumbleClient>()
-    .AddClient<SteamClient>();
+    .AddClient<SteamClient>()
+    .WriteToFile();
 
 var sw = Stopwatch.StartNew();
 

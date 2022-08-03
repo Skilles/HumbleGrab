@@ -9,19 +9,21 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Config.Net" Version="5.1.0"/>
-        <PackageReference Include="Config.Net.Yaml" Version="5.1.0"/>
+        <PackageReference Include="Config.Net" Version="5.1.0" />
+        <PackageReference Include="Config.Net.Yaml" Version="5.1.0" />
     </ItemGroup>
 
     <ItemGroup>
-        <None Update="config.yaml">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </None>
+        <ProjectReference Include="..\HumbleGrab.Humble\HumbleGrab.Humble.csproj" />
+        <ProjectReference Include="..\HumbleGrab.Steam\HumbleGrab.Steam.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\HumbleGrab.Humble\HumbleGrab.Humble.csproj"/>
-        <ProjectReference Include="..\HumbleGrab.Steam\HumbleGrab.Steam.csproj"/>
+      <None Remove="config.yaml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Client\Results" />
     </ItemGroup>
 
 </Project>

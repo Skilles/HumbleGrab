@@ -6,8 +6,6 @@ public abstract class BaseClient<T> : IClient where T : IClientOptions
 {
     abstract protected string BaseUrl { get; }
 
-    protected readonly FileWriter Writer;
-
     protected readonly T Options;
 
     protected readonly HttpClientHandler ClientHandler;
@@ -18,7 +16,6 @@ public abstract class BaseClient<T> : IClient where T : IClientOptions
 
     protected internal BaseClient(T options)
     {
-        Writer = new FileWriter(AppDomain.CurrentDomain.BaseDirectory);
         ClientHandler = new HttpClientHandler {UseCookies = false};
         Client = new HttpClient(ClientHandler) {BaseAddress = new Uri(BaseUrl)};
         Options = options;
@@ -41,7 +38,8 @@ public abstract class BaseClient<T> : IClient where T : IClientOptions
 
     virtual protected void ReleaseUnmanagedResources()
     {
-        Writer.Dispose();
+        Client.Dispose();
+        ClientHandler.Dispose();
     }
 
     private void Dispose(bool disposing)

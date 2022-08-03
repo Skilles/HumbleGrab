@@ -7,6 +7,8 @@ namespace HumbleGrabber.Config;
 public interface IOptions
 {
     public GameResultMode ResultMode { get; }
+    
+    public string OutputFolder { get; }
 
     public IHumbleOptions HumbleOptions { get; }
     public ISteamOptions SteamOptions { get; }

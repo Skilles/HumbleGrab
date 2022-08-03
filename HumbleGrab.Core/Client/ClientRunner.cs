@@ -12,16 +12,18 @@ public class ClientRunner
 
     private readonly IDictionary<Type, IClient> Clients;
 
-    private readonly IDictionary<IClient, IEnumerable<IGame>> ClientResults;
-
     private readonly ClientFactory ClientFactory;
+    
+    private readonly ResultWriter ResultWriter;
+
+    private bool WriteResults;
 
     public ClientRunner(IOptions options)
     {
         Options = options;
         ClientFactory = new ClientFactory(options);
+        ResultWriter = new ResultWriter(Options.OutputFolder);
         Clients = new Dictionary<Type, IClient>();
-        ClientResults = new ConcurrentDictionary<IClient, IEnumerable<IGame>>();
     }
 
     public ClientRunner AddClient<T>() where T : IClient
@@ -33,12 +35,21 @@ public class ClientRunner
         return this;
     }
 
+    public ClientRunner WriteToFile()
+    {
+        WriteResults = true;
+
+        return this;
+    }
+
     public IEnumerable<IGame> Run()
     {
+        var results = new GameResults();
+        
         var block = new ActionBlock<IClient>(async client =>
         {
-            var results = await client.FetchGamesAsync();
-            ClientResults.Add(client, results);
+            var games = await client.FetchGamesAsync();
+            results.AddResult(client.GetType(), games);
         }, new ExecutionDataflowBlockOptions {MaxDegreeOfParallelism = 6});
 
         foreach (var client in Clients.Values)
@@ -51,48 +62,10 @@ public class ClientRunner
 
         return (Options.ResultMode switch
                 {
-                    GameResultMode.Common => GetCommonGames(),
-                    GameResultMode.All => GetAllGames(),
-                    GameResultMode.Unredeemed => GetUnmatchedGames(),
+                    GameResultMode.Common => results.GetCommonGames(),
+                    GameResultMode.All => results.GetAllGames(),
+                    GameResultMode.Unredeemed => results.GetUnmatchedGames(),
                     _ => new List<IGame>()
                 }).ToList();
-    }
-
-    private IEnumerable<IGame> GetUnmatchedGames()
-    {
-        var humbleGames = ClientResults[Clients[typeof(HumbleClient)]];
-        return humbleGames.Except(GetCommonGames(), new GameComparer());
-    }
-
-    private IEnumerable<IGame> GetCommonGames() => Intersect(ClientResults.Values.ToArray(), new GameComparer());
-
-    private IEnumerable<IGame> GetAllGames() => Union(ClientResults.Values.ToArray(), new GameComparer());
-
-    private static IEnumerable<T> Union<T>(IEnumerable<T>[] sequences, IEqualityComparer<T>? comparer = null) => sequences
-        .SelectMany(x => x)
-        .Distinct(comparer);
-
-    private static IEnumerable<T> Intersect<T>(IEnumerable<T>[] sequences, IEqualityComparer<T>? comparer = null) => sequences
-        .Skip(1)
-        .Aggregate(
-            new HashSet<T>(sequences.First(), comparer),
-            (h, e) =>
-            {
-                h.IntersectWith(e);
-                return h;
-            });
-
-    private class GameComparer : IEqualityComparer<IGame>
-    {
-        public bool Equals(IGame? x, IGame? y)
-        {
-            if (ReferenceEquals(x, y)) return true;
-            if (ReferenceEquals(x, null)) return false;
-            if (ReferenceEquals(y, null)) return false;
-            if (x.SteamId == 0 || y.SteamId == 0) return false; // TODO compare names for id-less games
-            return x.SteamId == y.SteamId;
-        }
-
-        public int GetHashCode(IGame obj) => obj.SteamId;
     }
 }
