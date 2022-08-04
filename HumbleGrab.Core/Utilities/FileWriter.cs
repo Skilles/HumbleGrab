@@ -1,4 +1,4 @@
-﻿namespace HumbleGrab.Common;
+﻿namespace HumbleGrab.Core.Utilities;
 
 public class FileWriter : IDisposable
 {

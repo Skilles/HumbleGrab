@@ -2,13 +2,13 @@
 using HumbleGrab.Common.Interfaces;
 using HumbleGrab.Humble;
 
-namespace HumbleGrabber.Client;
+namespace HumbleGrab.Core.Export;
 
-public class GameResults
+public class ResultCollection
 {
     private readonly IDictionary<Type, IEnumerable<IGame>> ClientResults;
 
-    public GameResults()
+    public ResultCollection()
     {
         ClientResults = new ConcurrentDictionary<Type, IEnumerable<IGame>>();
     }
@@ -49,7 +49,10 @@ public class GameResults
             if (ReferenceEquals(x, y)) return true;
             if (ReferenceEquals(x, null)) return false;
             if (ReferenceEquals(y, null)) return false;
-            if (x.SteamId == 0 || y.SteamId == 0) return false; // TODO compare names for id-less games
+            if (x.SteamId == 0 || y.SteamId == 0)
+            {
+                return x.Name == y.Name;
+            }
             return x.SteamId == y.SteamId;
         }
 

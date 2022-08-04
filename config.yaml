@@ -1,14 +1,9 @@
 ﻿ResultMode: Unredeemed
+OutputPath: "%CURRENT_DIR%\\output\\"
 HumbleOptions:
-  AsyncMode: true
-  AutoMode: true
-  OutputPath: null
-  BundlesFileName: bundles.txt
-  KeysFileName: gamekeys.txt
-  GameOptions:
-    AllowedTypes:
-      - Steam
-    AllowExpired: false
+  AllowedTypes:
+    - Steam
+  AllowExpired: false
 SteamOptions:
   ApiKey: 4240C1ACFCB80783AEBD5E40B055AA57
   SteamId: 76561198147867236

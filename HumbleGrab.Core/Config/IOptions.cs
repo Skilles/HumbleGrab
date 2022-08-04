@@ -1,14 +1,15 @@
-﻿using HumbleGrab.Humble.Options;
+﻿using HumbleGrab.Core.Client;
+using HumbleGrab.Core.Export;
+using HumbleGrab.Humble.Options;
 using HumbleGrab.Steam.Options;
-using HumbleGrabber.Client;
 
-namespace HumbleGrabber.Config;
+namespace HumbleGrab.Core.Config;
 
 public interface IOptions
 {
-    public GameResultMode ResultMode { get; }
+    public ResultMode ResultMode { get; }
     
-    public string OutputFolder { get; }
+    public string OutputPath { get; }
 
     public IHumbleOptions HumbleOptions { get; }
     public ISteamOptions SteamOptions { get; }

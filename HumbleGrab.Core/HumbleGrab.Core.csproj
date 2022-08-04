@@ -5,12 +5,18 @@
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <RootNamespace>HumbleGrabber</RootNamespace>
+        <PackageId>HumbleGrab</PackageId>
+        <Title>Humble Grab</Title>
+        <Authors>Bilal Madi</Authors>
+        <Company>HumbleGrab</Company>
+        <Product>HumbleGrab</Product>
+        <LangVersion>preview</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="Config.Net" Version="5.1.0" />
         <PackageReference Include="Config.Net.Yaml" Version="5.1.0" />
+        <PackageReference Include="Handlebars.Net" Version="2.1.2" />
     </ItemGroup>
 
     <ItemGroup>
@@ -23,7 +29,18 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Client\Results" />
+      <None Remove="Template\ResultsTemplate.hbs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="..\config.yaml">
+        <Link>config.yaml</Link>
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Include="Results.hbs" />
     </ItemGroup>
 
 </Project>

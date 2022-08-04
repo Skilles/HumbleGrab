@@ -1,10 +1,10 @@
-﻿using System.Collections.Concurrent;
-using System.Threading.Tasks.Dataflow;
+﻿using System.Threading.Tasks.Dataflow;
 using HumbleGrab.Common.Interfaces;
-using HumbleGrab.Humble;
-using HumbleGrabber.Config;
+using HumbleGrab.Core.Config;
+using HumbleGrab.Core.Export;
+using HumbleGrab.Core.Utilities;
 
-namespace HumbleGrabber.Client;
+namespace HumbleGrab.Core.Client;
 
 public class ClientRunner
 {
@@ -14,7 +14,7 @@ public class ClientRunner
 
     private readonly ClientFactory ClientFactory;
     
-    private readonly ResultWriter ResultWriter;
+    private readonly ResultBuilder ResultBuilder;
 
     private bool WriteResults;
 
@@ -22,7 +22,7 @@ public class ClientRunner
     {
         Options = options;
         ClientFactory = new ClientFactory(options);
-        ResultWriter = new ResultWriter(Options.OutputFolder);
+        ResultBuilder = new ResultBuilder(Options.OutputPath.Replace("%CURRENT_DIR%", Directory.GetCurrentDirectory()));
         Clients = new Dictionary<Type, IClient>();
     }
 
@@ -42,9 +42,18 @@ public class ClientRunner
         return this;
     }
 
+    private IEnumerable<IGame> GetGamesFromResults(ResultCollection results) 
+        => Options.ResultMode switch
+          {
+              ResultMode.Common => results.GetCommonGames(),
+              ResultMode.All => results.GetAllGames(),
+              ResultMode.Unredeemed => results.GetUnmatchedGames(),
+              _ => new List<IGame>()
+          };
+
     public IEnumerable<IGame> Run()
     {
-        var results = new GameResults();
+        var results = new ResultCollection();
         
         var block = new ActionBlock<IClient>(async client =>
         {
@@ -60,12 +69,11 @@ public class ClientRunner
         block.Complete();
         block.Completion.GetAwaiter().GetResult();
 
-        return (Options.ResultMode switch
-                {
-                    GameResultMode.Common => results.GetCommonGames(),
-                    GameResultMode.All => results.GetAllGames(),
-                    GameResultMode.Unredeemed => results.GetUnmatchedGames(),
-                    _ => new List<IGame>()
-                }).ToList();
+        if (WriteResults)
+        {
+            ResultBuilder.Export(results);
+        }
+
+        return GetGamesFromResults(results);
     }
 }

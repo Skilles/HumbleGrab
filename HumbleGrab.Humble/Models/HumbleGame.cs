@@ -9,7 +9,7 @@ public readonly record struct HumbleGame
     [property: JsonPropertyName("human_name")]
     string Name,
     [property: JsonPropertyName("redeemed_key_val")]
-    string Key,
+    string? Key,
     [property: JsonPropertyName("is_expired")]
     bool IsExpired,
     [property: JsonPropertyName("key_type")]

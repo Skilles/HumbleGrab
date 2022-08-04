@@ -1,4 +1,4 @@
-﻿namespace HumbleGrabber.Config;
+﻿namespace HumbleGrab.Core.Config;
 
 public static class Options
 {

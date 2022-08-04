@@ -1,9 +1,9 @@
 ﻿using HumbleGrab.Common.Interfaces;
+using HumbleGrab.Core.Config;
 using HumbleGrab.Humble;
 using HumbleGrab.Steam;
-using HumbleGrabber.Config;
 
-namespace HumbleGrabber.Client;
+namespace HumbleGrab.Core.Client;
 
 public class ClientFactory
 {

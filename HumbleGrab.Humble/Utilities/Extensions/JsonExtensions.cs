@@ -7,7 +7,7 @@ namespace HumbleGrab.Humble.Utilities.Extensions;
 
 public static class JsonExtensions
 {
-    private static HumbleGameBundle ToGameBundle(this JsonNode jsonObject, IGameOptions options)
+    private static HumbleGameBundle ToGameBundle(this JsonNode jsonObject, IHumbleOptions options)
     {
         var name = jsonObject["product"]!["human_name"]!.GetValue<string>();
 
@@ -30,7 +30,7 @@ public static class JsonExtensions
         return gameBundle;
     }
 
-    public static IEnumerable<HumbleGameBundle> ToGameBundles(this string json, IGameOptions options)
+    public static IEnumerable<HumbleGameBundle> ToGameBundles(this string json, IHumbleOptions options)
     {
         var jsonObjects = JsonNode.Parse(json)!.AsObject();
         return jsonObjects

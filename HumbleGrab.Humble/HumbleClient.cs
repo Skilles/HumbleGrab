@@ -60,7 +60,7 @@ public class HumbleClient : BaseClient<IHumbleOptions>
         
         var json = await response.Content.ReadAsStringAsync();
         
-        return json.ToGameBundles(Options.GameOptions);
+        return json.ToGameBundles(Options);
     }
 
     private async Task<IEnumerable<string>> GetAllGameKeysAsync()

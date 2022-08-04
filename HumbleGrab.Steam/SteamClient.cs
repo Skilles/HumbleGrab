@@ -11,13 +11,13 @@ public class SteamClient : BaseClient<ISteamOptions>
 {
     override protected string BaseUrl => "https://api.steampowered.com";
 
-    private const string OwnedGamesEndpoint = "/IPlayerService/GetOwnedGames/v0001/";
+    private const string OwnedGamesEndpoint = "/IPlayerService/GetOwnedGames/v1/";
 
     public SteamClient(ISteamOptions options) : base(options) { }
-
+    
     private async Task<SteamProfile> GetProfileAsync()
     {
-        var endpoint = $"{OwnedGamesEndpoint}?key={Options.ApiKey}&steamid={Options.SteamId}";
+        var endpoint = $"{OwnedGamesEndpoint}?key={Options.ApiKey}&steamid={Options.SteamId}&include_appinfo=true";
         
         var response = await Client.GetAsync(endpoint);
         
@@ -25,7 +25,7 @@ public class SteamClient : BaseClient<ISteamOptions>
 
         return ParseProfile(json);
     }
-    
+
     private static SteamProfile ParseProfile(string json)
     {
         var jsonObject = JsonNode.Parse(json)!.AsObject();

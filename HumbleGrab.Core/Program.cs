@@ -1,11 +1,11 @@
 ﻿using System.Diagnostics;
 using Config.Net;
+using HumbleGrab.Core.Client;
+using HumbleGrab.Core.Config;
 using HumbleGrab.Humble;
 using HumbleGrab.Steam;
-using HumbleGrabber.Client;
-using HumbleGrabber.Config;
 
-var optionsPath = AppDomain.CurrentDomain.BaseDirectory + @"\config.yaml";
+var optionsPath = AppDomain.CurrentDomain.BaseDirectory + @"config.yaml";
 
 var options = new ConfigurationBuilder<IOptions>()
     .UseYamlFile(optionsPath)
