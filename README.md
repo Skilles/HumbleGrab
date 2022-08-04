@@ -14,6 +14,9 @@ Format will be:
 
 Results are saved into an index.html that will automatically open when the program is finished.
 
+### Notes ###
+If my Steam API key gets rate limited, you must use your own by replacing the key in the config file.
+
 ### Parameters ###
 TODO
 
