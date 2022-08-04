@@ -11,6 +11,11 @@
         <Company>HumbleGrab</Company>
         <Product>HumbleGrab</Product>
         <LangVersion>preview</LangVersion>
+        <AssemblyVersion>1.0.0</AssemblyVersion>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <DebugType>none</DebugType>
     </PropertyGroup>
 
     <ItemGroup>

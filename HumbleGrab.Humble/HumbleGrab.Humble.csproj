@@ -7,6 +7,10 @@
         <LangVersion>preview</LangVersion>
     </PropertyGroup>
 
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <DebugType>none</DebugType>
+    </PropertyGroup>
+
     <ItemGroup>
         <PackageReference Include="Selenium.WebDriver" Version="4.3.0" />
         <PackageReference Include="Selenium.WebDriver.MSEdgeDriver" Version="103.0.1264.62" />

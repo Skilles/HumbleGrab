@@ -12,8 +12,7 @@ public class HumbleClient : BaseClient<IHumbleOptions>
 
     private const string AllKeysEndpoint = "/api/v1/user/order";
     private const string OrdersEndpoint = "/api/v1/orders?all_tpkds=true";
-
-    private const string AuthCookieValue = "eyJ1c2VyX2lkIjo1MTExMzIxMTQxOTY4ODk2LCJpZCI6InJwYVE5NGNDUkgiLCJhdXRoX3RpbWUiOjE2NTg0MjgyNjZ9|1659117090|86f3489059690f1873a37e9f81c9a40c9d695b8e";
+    
     private const string AuthCookieName = "_simpleauth_sess";
 
     public HumbleClient(IHumbleOptions options) : base(options) { }
@@ -76,7 +75,7 @@ public class HumbleClient : BaseClient<IHumbleOptions>
     {
         var message = new HttpRequestMessage(HttpMethod.Get, endpoint);
         
-        message.Headers.Add("cookie", $"{AuthCookieName}={AuthCookieValue}");
+        message.Headers.Add("cookie", $"{AuthCookieName}={Options.AuthToken}");
         
         var result = await Client.SendAsync(message);
         
