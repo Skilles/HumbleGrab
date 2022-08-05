@@ -7,4 +7,6 @@ HumbleOptions:
   AllowExpired: false
 SteamOptions:
   ApiKey: 4240C1ACFCB80783AEBD5E40B055AA57
-  SteamId: 76561198147867236
+  SteamIds: 
+    - 76561198147867236
+    - 76561198083026530

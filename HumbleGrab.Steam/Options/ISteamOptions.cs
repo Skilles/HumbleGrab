@@ -6,5 +6,5 @@ public interface ISteamOptions : IClientOptions
 {
     public string ApiKey { get; }
 
-    public string SteamId { get; }
+    public IEnumerable<string> SteamIds { get; }
 }

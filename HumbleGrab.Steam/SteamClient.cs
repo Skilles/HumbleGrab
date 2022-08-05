@@ -15,9 +15,9 @@ public class SteamClient : BaseClient<ISteamOptions>
 
     public SteamClient(ISteamOptions options) : base(options) { }
     
-    private async Task<SteamProfile> GetProfileAsync()
+    private async Task<SteamProfile> GetProfileAsync(string steamId)
     {
-        var endpoint = $"{OwnedGamesEndpoint}?key={Options.ApiKey}&steamid={Options.SteamId}&include_appinfo=true";
+        var endpoint = $"{OwnedGamesEndpoint}?key={Options.ApiKey}&steamid={steamId}&include_appinfo=true";
         
         var response = await Client.GetAsync(endpoint);
         
@@ -43,7 +43,7 @@ public class SteamClient : BaseClient<ISteamOptions>
 
     public override async Task<IEnumerable<IGame>> FetchGamesAsync()
     {
-        var profile = await GetProfileAsync();
-        return profile.Games.Cast<IGame>();
+        var profiles = await Task.WhenAll(Options.SteamIds.Select(GetProfileAsync));
+        return profiles.SelectMany(p => p.Games).Cast<IGame>();
     }
 }
