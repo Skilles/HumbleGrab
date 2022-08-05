@@ -21,8 +21,6 @@ public abstract class BaseClient<T> : IClient where T : IClientOptions
         Options = options;
     }
 
-    public abstract IEnumerable<IGame> FetchGames();
-
     public abstract Task<IEnumerable<IGame>> FetchGamesAsync();
 
     public void Dispose()

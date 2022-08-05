@@ -24,13 +24,6 @@ public class HumbleClient : BaseClient<IHumbleOptions>
         ClientHandler.Dispose();
     }
 
-    public override IEnumerable<IGame> FetchGames()
-    {
-        var bundles = GetGameBundlesAsync().GetAwaiter().GetResult().ToArray();
-
-        return bundles.SelectMany(b => b.Games).Cast<IGame>();
-    }
-
     public override async Task<IEnumerable<IGame>> FetchGamesAsync()
     {
         var bundles = (await GetGameBundlesAsync()).ToArray();

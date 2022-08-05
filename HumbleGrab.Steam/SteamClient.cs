@@ -35,12 +35,6 @@ public class SteamClient : BaseClient<ISteamOptions>
         return profile;
     }
 
-    public override IEnumerable<IGame> FetchGames()
-    {
-        var profile = GetProfileAsync().GetAwaiter().GetResult();
-        return profile.Games.Cast<IGame>();
-    }
-
     public override async Task<IEnumerable<IGame>> FetchGamesAsync()
     {
         var profiles = await Task.WhenAll(Options.SteamIds.Select(GetProfileAsync));
