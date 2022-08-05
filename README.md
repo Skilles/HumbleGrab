@@ -8,14 +8,11 @@ it against other game libraries such as Steam, GOG, and Epic Games.
 First, you need to get your authentication cookie from humblebundle.com. To do so, navigate there, log in and press F12 to open the developper tools of your browser. Navigate to the cookies tab, and look for a cookie named _simpleauth_sess (on the humblebundle.com domain). Copy and paste the value into the config file.
 
 `config.yaml` is the configuration file for the program. There, you will find settings for using different clients, steam id, and more.
-Format will be:
-
-` <variable name>: <variable value>`
 
 Results are saved into an index.html that will automatically open when the program is finished.
 
 ### Notes ###
-If my Steam API key gets rate limited, you must use your own by replacing the key in the config file.
+If the included Steam API key stops working, you must use your own and replace the key in the config file.
 
 ### Parameters ###
 TODO
@@ -28,3 +25,4 @@ TODO
 | Origin | ❌ |
 | Epic | ❌ |
 | GOG | ❌ |
+| Blizzard |❌|
