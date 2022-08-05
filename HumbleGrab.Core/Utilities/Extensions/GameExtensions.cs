@@ -10,7 +10,17 @@ public static class GameExtensions
     {
         if (game is HumbleGame hGame)
         {
-            return new GameResult(hGame.Name, hGame.Key, "Humble", hGame.Key == null ? "Unredeemed" : "Redeemed");
+            var status = "Redeemed";
+            if (hGame.Key == null)
+            {
+                status = "Unredeemed";
+            } 
+            else if (hGame.SteamId == 0)
+            {
+                status = "Unknown";
+            }
+
+            return new GameResult(hGame.Name, hGame.Key, "Humble", status);
         }
 
         return new GameResult(game.Name, "", nameof(GameResult).Replace("Game", ""), "");

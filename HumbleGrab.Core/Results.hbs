@@ -140,7 +140,7 @@
         <main class="st_viewport">
 
             {{#each tables}}
-            <div class="st_wrap_table" data-table_id="0">
+            <div class="st_wrap_table" data-table_id="{{@index}}" style="background-color: {{this.color}}; color: {{this.textcolor}};">
                 <header class="st_table_header">
                 <h2>{{this.name}}</h2>
                 <div class="st_row">

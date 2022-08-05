@@ -20,8 +20,8 @@ var runner = new ClientRunner(options)
 
 var sw = Stopwatch.StartNew();
 
-var result = runner.Run();
+await runner.Run();
 
 sw.Stop();
 
-Console.WriteLine($"Found {result.Count()} games in {sw.Elapsed.TotalSeconds} seconds");
+Console.WriteLine($"Took {sw.Elapsed.TotalSeconds} seconds");

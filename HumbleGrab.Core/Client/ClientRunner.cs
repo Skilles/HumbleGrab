@@ -2,7 +2,6 @@
 using HumbleGrab.Common.Interfaces;
 using HumbleGrab.Core.Config;
 using HumbleGrab.Core.Export;
-using HumbleGrab.Core.Utilities;
 
 namespace HumbleGrab.Core.Client;
 
@@ -42,7 +41,7 @@ public class ClientRunner
         return this;
     }
 
-    private IEnumerable<IGame> GetGamesFromResults(ResultCollection results) 
+    public IEnumerable<IGame> GetGamesFromResults(ResultCollection results) 
         => Options.ResultMode switch
           {
               ResultMode.Common => results.GetCommonGames(),
@@ -51,7 +50,7 @@ public class ClientRunner
               _ => new List<IGame>()
           };
 
-    public IEnumerable<IGame> Run()
+    public async Task<ResultCollection> Run()
     {
         var results = new ResultCollection();
         
@@ -71,9 +70,9 @@ public class ClientRunner
 
         if (WriteResults)
         {
-            ResultBuilder.Export(results);
+            await ResultBuilder.ExportAsync(results);
         }
 
-        return GetGamesFromResults(results);
+        return results;
     }
 }

@@ -1,5 +1,4 @@
-﻿using HumbleGrab.Core.Client;
-using HumbleGrab.Core.Export;
+﻿using HumbleGrab.Core.Export;
 using HumbleGrab.Humble.Options;
 using HumbleGrab.Steam.Options;
 
